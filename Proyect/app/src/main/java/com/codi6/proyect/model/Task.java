@@ -4,6 +4,7 @@ import java.util.Date;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  * Created by usainzg on 07/11/2016.
@@ -13,14 +14,16 @@ public class Task extends RealmObject {
 
     @PrimaryKey
     private String id;
+
+    @Required
     private String title;
     private String description;
     private boolean isDone;
+
+    @Required
     private Date createdAt;
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public void setId(String id) {
         this.id = id;
