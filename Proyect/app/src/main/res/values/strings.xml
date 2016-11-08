@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">Proyect</string>
-    <string name="title_activity_main1">MainActivity1</string>
+    <string name="title_activity_main1">Unai Proyect</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="nav_support_name">Unai Sainz de la Maza Gamboa</string>
+    <string name="nav_support_email">unaihtc70@gmail.com</string>
+    <string name="nav_img_description">Support image</string>
 </resources>
