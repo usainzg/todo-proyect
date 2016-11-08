@@ -30,7 +30,7 @@ public class MainActivity1 extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                // TODO to replace
+                // TODO add task to list
                 Snackbar.make(view, "HAY QUE CAMBIAR!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -85,7 +85,7 @@ public class MainActivity1 extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_tasks) {
-            // Handle the camera action
+            
         } else if (id == R.id.nav_labels) {
 
         } else if (id == R.id.nav_settings) {
