@@ -16,4 +16,8 @@
     <string name="drawer_menu_txt_labels">Labels</string>
     <string name="drawer_menu_txt_settings">Settings</string>
     <string name="drawer_menu_txt_help">Help and feedback</string>
+
+
+    <string name="floating_menu_add">Add task</string>
+    <string name="floating_menu_camera">Open camera</string>
 </resources>

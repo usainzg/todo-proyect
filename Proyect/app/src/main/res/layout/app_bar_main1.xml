@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context="com.codi6.proyect.activity.MainActivity1">
 
@@ -28,14 +29,32 @@
 
     <include layout="@layout/content_main1" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_task_btn"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_black_24dp"
-        app:backgroundTint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
-        app:elevation="9dp"
-        android:layout_width="67dp"
-        android:layout_height="61dp" />
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/menu_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        fab:fab_addButtonColorNormal="?attr/colorPrimary"
+        fab:fab_addButtonSize="normal"
+        fab:fab_labelsPosition="left">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_icon="@drawable/ic_plus"
+            fab:fab_size="mini"
+            fab:fab_title="@string/action_search_title" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_btn_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_icon="@drawable/ic_photo_camera"
+            fab:fab_size="mini"
+            fab:fab_title="@string/floating_menu_camera" />
+
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>

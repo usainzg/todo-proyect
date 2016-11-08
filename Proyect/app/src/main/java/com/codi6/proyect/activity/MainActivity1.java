@@ -1,5 +1,6 @@
 package com.codi6.proyect.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -30,16 +31,15 @@ public class MainActivity1 extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_task_btn);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_task_btn);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                // TODO add task to list
-                Snackbar.make(view, "HAY QUE CAMBIAR!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // TODO
+
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
