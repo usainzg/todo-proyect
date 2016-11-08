@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Proyect</string>
-    <string name="title_activity_main1">Unai Proyect</string>
+    <string name="app_name">Task Manager</string>
+    <string name="title_activity_main1">Unai´s Proyect</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
