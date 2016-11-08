@@ -19,11 +19,14 @@ public class Task extends RealmObject {
     private String title;
     private String description;
     private boolean isDone;
+    private Label label;
 
     @Required
     private Date createdAt;
 
-    public String getId() { return id; }
+    public String getId() {
+        return id;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -59,5 +62,13 @@ public class Task extends RealmObject {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public void setLabel(Label label) {
+        this.label = label;
     }
 }
