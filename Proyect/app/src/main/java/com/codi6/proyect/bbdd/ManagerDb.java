@@ -24,6 +24,8 @@ public class ManagerDb {
 
             realm.commitTransaction();
 
+            realm.close();
+
         }catch(Exception e){
             Log.e("ERROR --> ", "error" + e.getMessage());
         }
@@ -43,6 +45,7 @@ public class ManagerDb {
             }
         }
         realm.commitTransaction();
+        realm.close();
     }
 
 
@@ -52,7 +55,7 @@ public class ManagerDb {
         realm.beginTransaction();
         RealmResults<Task> tasks = realm.where(Task.class).findAll();
         realm.commitTransaction();
-
+        realm.close();
         return tasks;
     }
 
