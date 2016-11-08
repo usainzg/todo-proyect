@@ -10,4 +10,10 @@
     <string name="nav_support_name">Unai Sainz de la Maza Gamboa</string>
     <string name="nav_support_email">unaihtc70@gmail.com</string>
     <string name="nav_img_description">Support image</string>
+
+
+    <string name="drawer_menu_txt_tasks">Tasks</string>
+    <string name="drawer_menu_txt_labels">Labels</string>
+    <string name="drawer_menu_txt_settings">Settings</string>
+    <string name="drawer_menu_txt_help">Help and feedback</string>
 </resources>
