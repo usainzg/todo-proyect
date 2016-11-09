@@ -20,4 +20,9 @@
 
     <string name="floating_menu_add">Add task</string>
     <string name="floating_menu_camera">Open camera</string>
+
+
+    <string name="dialog_main_title">Create A Task</string>
+    <string name="dialog_task_title">What do you want to save?</string>
+    <string name="dialog_task_hint_title">Intro task title here</string>
 </resources>

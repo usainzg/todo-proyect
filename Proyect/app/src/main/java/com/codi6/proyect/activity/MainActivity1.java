@@ -1,5 +1,6 @@
 package com.codi6.proyect.activity;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,19 +11,26 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.codi6.proyect.R;
 
 public class MainActivity1 extends AppCompatActivity
         implements OnNavigationItemSelectedListener, OnQueryTextListener {
+
+    private com.getbase.floatingactionbutton.FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +39,16 @@ public class MainActivity1 extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_task_btn);
+        fab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                // TODO
+                buildAndShowInputDialog();
 
             }
-        });*/
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -100,5 +109,42 @@ public class MainActivity1 extends AppCompatActivity
     public boolean onQueryTextChange(String newText) {
         Log.i("ON THE FLY", newText);
         return false;
+    }
+
+    private void buildAndShowInputDialog(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity1.this);
+        builder.setTitle(R.string.dialog_main_title);
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View dialogView = li.inflate(R.layout.task_dialog_view, null);
+        final EditText input = (EditText) dialogView.findViewById(R.id.dialogTitleInput);
+
+        builder.setView(dialogView);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // TODO implement add todo
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        final AlertDialog dialog = builder.show();
+        input.setOnEditorActionListener(
+                new EditText.OnEditorActionListener(){
+
+                    @Override
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+
+                        // TODO implement add todo
+                        return false;
+                    }
+                }
+        );
     }
 }
