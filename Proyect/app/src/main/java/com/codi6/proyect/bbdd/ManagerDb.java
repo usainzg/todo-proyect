@@ -11,31 +11,46 @@ import io.realm.RealmResults;
  * Created by unaisainz on 8/11/16.
  */
 
-public class ManagerDb {
+public class ManagerDb implements TaskManager{
 
-    public void addTask(final Task task){
 
+    @Override
+    public Task findTask(String id){
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        Task task = realm.where(Task.class).equalTo("id", id).findAll().first();
+        realm.close();
+        return task;
+    }
+
+    @Override
+    public RealmResults<Task> findTasks(){
+        Realm realm = Realm.getDefaultInstance();
+
+        realm.beginTransaction();
+        RealmResults<Task> tasks = realm.where(Task.class).findAll();
+        realm.commitTransaction();
+        realm.close();
+        return tasks;
+    }
+
+    @Override
+    public void insertTask(final Task task){
         try {
             Realm realm = Realm.getDefaultInstance();
-
             realm.beginTransaction();
-
             realm.copyToRealm(task);
-
             realm.commitTransaction();
-
             realm.close();
 
         }catch(Exception e){
             Log.e("ERROR --> ", "error" + e.getMessage());
         }
-
     }
 
+    @Override
     public void removeTask(final String id){
-
         Realm realm = Realm.getDefaultInstance();
-
         realm.beginTransaction();
         RealmResults<Task> tasksToRemove =  realm.where(Task.class).equalTo("id", id).findAll();
 
@@ -48,20 +63,14 @@ public class ManagerDb {
         realm.close();
     }
 
-
-    public RealmResults<Task> getTasks(){
+    @Override
+    public void deleteCompleted(){
         Realm realm = Realm.getDefaultInstance();
-
         realm.beginTransaction();
-        RealmResults<Task> tasks = realm.where(Task.class).findAll();
+        RealmResults<Task> results = realm.where(Task.class).equalTo("isDone", true).findAll();
+        results.clear();
         realm.commitTransaction();
         realm.close();
-        return tasks;
     }
-
-
-
-
-
 
 }

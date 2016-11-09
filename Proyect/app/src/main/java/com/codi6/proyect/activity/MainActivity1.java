@@ -27,17 +27,22 @@ import android.widget.TextView;
 
 import com.codi6.proyect.R;
 import com.codi6.proyect.adapters.TaskRealmAdapter;
+import com.codi6.proyect.bbdd.ManagerDb;
 import com.codi6.proyect.model.Task;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class MainActivity1 extends AppCompatActivity
         implements OnNavigationItemSelectedListener, OnQueryTextListener {
 
     private com.getbase.floatingactionbutton.FloatingActionButton fabAdd;
     private Realm realm;
+    private RealmRecyclerView realmRecyclerView;
+    private TaskRealmAdapter taskRealmAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class MainActivity1 extends AppCompatActivity
         setContentView(R.layout.activity_main1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         fabAdd = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
 
@@ -66,13 +72,20 @@ public class MainActivity1 extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        realmRecyclerView = (RealmRecyclerView) findViewById(R.id.list);
+
         realm = Realm.getDefaultInstance();
-        RealmResults<Task> toDoItems = realm
-                .where(Task.class).findAll();
-        TaskRealmAdapter toDoRealmAdapter = new TaskRealmAdapter(this, toDoItems, true, true);
-        RealmRecyclerView realmRecyclerView = (RealmRecyclerView) findViewById(R.id.list);
-        realmRecyclerView.setAdapter(toDoRealmAdapter);
+
+        RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.DESCENDING);
+
+
+        taskRealmAdapter = new TaskRealmAdapter(this, realmResults, true, true);
+
+        realmRecyclerView.setAdapter(taskRealmAdapter);
+
     }
+
 
     @Override
     public void onBackPressed() {
@@ -160,5 +173,12 @@ public class MainActivity1 extends AppCompatActivity
                     }
                 }
         );
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        realm.close();
+        realm = null;
     }
 }
