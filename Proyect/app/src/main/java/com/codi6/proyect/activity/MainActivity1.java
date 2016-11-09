@@ -28,7 +28,10 @@ import android.widget.TextView;
 import com.codi6.proyect.R;
 import com.codi6.proyect.adapters.TaskRealmAdapter;
 import com.codi6.proyect.bbdd.ManagerDb;
+import com.codi6.proyect.model.Label;
 import com.codi6.proyect.model.Task;
+
+import java.util.Date;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
@@ -50,6 +53,8 @@ public class MainActivity1 extends AppCompatActivity
         setContentView(R.layout.activity_main1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ManagerDb managerDb = new ManagerDb();
 
 
         fabAdd = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
@@ -77,10 +82,84 @@ public class MainActivity1 extends AppCompatActivity
 
         realm = Realm.getDefaultInstance();
 
-        RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.DESCENDING);
+
+        // hardcoded data for test
+
+        Task task = new Task();
+        task.setId("001");
+        task.setTitle("TITLE 1");
+        task.setCreatedAt(new Date());
+        task.setLabel(new Label("Clase"));
+        task.setDescription("Test task to prove app.");
 
 
-        taskRealmAdapter = new TaskRealmAdapter(this, realmResults, true, true);
+        Task task2 = new Task();
+        task2.setId("002");
+        task2.setTitle("TITLE 2");
+        task2.setCreatedAt(new Date());
+        task2.setLabel(new Label("Trabajo"));
+        task2.setDescription("Test task to prove app.");
+
+
+        Task task3 = new Task();
+        task3.setId("003");
+        task3.setTitle("TITLE 3");
+        task3.setCreatedAt(new Date());
+        task3.setLabel(new Label("Deporte"));
+        task3.setDescription("Test task to prove app.");
+
+
+        Task task4 = new Task();
+        task4.setId("004");
+        task4.setTitle("TITLE 4");
+        task4.setCreatedAt(new Date());
+        task4.setLabel(new Label("Academia"));
+        task4.setDescription("Test task to prove app.");
+
+        Task task5 = new Task();
+        task5.setId("005");
+        task5.setTitle("TITLE 5");
+        task5.setCreatedAt(new Date());
+        task5.setLabel(new Label("Academia0"));
+        task5.setDescription("Test task to prove app.");
+
+        Task task6 = new Task();
+        task6.setId("006");
+        task6.setTitle("TITLE 6");
+        task6.setCreatedAt(new Date());
+        task6.setLabel(new Label("Academia1"));
+        task6.setDescription("Test task to prove app.");
+
+        Task task7 = new Task();
+        task7.setId("007");
+        task7.setTitle("TITLE 7");
+        task7.setCreatedAt(new Date());
+        task7.setLabel(new Label("Academia2"));
+        task7.setDescription("Test task to prove app.");
+
+        Task task8 = new Task();
+        task8.setId("008");
+        task8.setTitle("TITLE 8");
+        task8.setCreatedAt(new Date());
+        task8.setLabel(new Label("Ingles"));
+        task8.setDescription("Test task to prove app.");
+        // end test
+
+
+        managerDb.insertTask(task);
+        managerDb.insertTask(task2);
+        managerDb.insertTask(task3);
+        managerDb.insertTask(task4);
+        managerDb.insertTask(task5);
+        managerDb.insertTask(task6);
+        managerDb.insertTask(task7);
+        managerDb.insertTask(task8);
+
+
+        RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
+
+
+        taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, false, false);
 
         realmRecyclerView.setAdapter(taskRealmAdapter);
 

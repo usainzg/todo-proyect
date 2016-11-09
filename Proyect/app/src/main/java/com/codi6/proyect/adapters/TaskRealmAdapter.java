@@ -45,7 +45,6 @@ public class TaskRealmAdapter extends RealmBasedRecyclerViewAdapter<Task, TaskRe
     }
 
 
-
     @Override
     public ViewHolder onCreateRealmViewHolder(ViewGroup viewGroup, int i) {
         View v = inflater.inflate(R.layout.fragment_item, viewGroup, false);
