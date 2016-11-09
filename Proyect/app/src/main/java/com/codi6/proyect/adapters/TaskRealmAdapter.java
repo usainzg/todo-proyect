@@ -1,6 +1,7 @@
 package com.codi6.proyect.adapters;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -39,12 +40,16 @@ public class TaskRealmAdapter extends RealmBasedRecyclerViewAdapter<Task, TaskRe
 
     @Override
     public ViewHolder onCreateRealmViewHolder(ViewGroup viewGroup, int i) {
-        return null;
+        View v = inflater.inflate(R.layout.task_view_test, viewGroup, false);
+        ViewHolder vh = new ViewHolder((FrameLayout) v);
+        return vh;
     }
 
     @Override
     public void onBindRealmViewHolder(ViewHolder viewHolder, int i) {
 
+        final Task task = realmResults.get(i);
+        viewHolder.todoTextView.setText(task.getTitle());
     }
 
 

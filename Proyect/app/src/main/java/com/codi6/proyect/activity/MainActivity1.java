@@ -26,11 +26,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.codi6.proyect.R;
+import com.codi6.proyect.adapters.TaskRealmAdapter;
+import com.codi6.proyect.model.Task;
+
+import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MainActivity1 extends AppCompatActivity
         implements OnNavigationItemSelectedListener, OnQueryTextListener {
 
     private com.getbase.floatingactionbutton.FloatingActionButton fabAdd;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,13 @@ public class MainActivity1 extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        realm = Realm.getDefaultInstance();
+        RealmResults<Task> toDoItems = realm
+                .where(Task.class).findAll();
+        TaskRealmAdapter toDoRealmAdapter = new TaskRealmAdapter(this, toDoItems, true, true);
+        RealmRecyclerView realmRecyclerView = (RealmRecyclerView) findViewById(R.id.list);
+        realmRecyclerView.setAdapter(toDoRealmAdapter);
     }
 
     @Override
