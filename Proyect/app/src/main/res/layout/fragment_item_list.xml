@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView android:id="@+id/list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:rrvLayoutType="LinearLayout"
+    app:rrvSwipeToDelete="true"
+    app:rrvEmptyLayoutId="@layout/task_empty_list"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+<!--<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
@@ -10,4 +19,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.codi6.proyect.fragments.ItemFragment"
-    tools:listitem="@layout/fragment_item" />
+    tools:listitem="@layout/fragment_item" />-->

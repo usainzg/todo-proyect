@@ -30,7 +30,7 @@ import com.codi6.proyect.R;
 public class MainActivity1 extends AppCompatActivity
         implements OnNavigationItemSelectedListener, OnQueryTextListener {
 
-    private com.getbase.floatingactionbutton.FloatingActionButton fab;
+    private com.getbase.floatingactionbutton.FloatingActionButton fabAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,9 @@ public class MainActivity1 extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        fab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
+        fabAdd = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
