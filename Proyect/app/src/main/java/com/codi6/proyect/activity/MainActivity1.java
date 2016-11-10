@@ -32,6 +32,7 @@ import com.codi6.proyect.model.Label;
 import com.codi6.proyect.model.Task;
 
 import java.util.Date;
+import java.util.UUID;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
@@ -46,6 +47,7 @@ public class MainActivity1 extends AppCompatActivity
     private Realm realm;
     private RealmRecyclerView realmRecyclerView;
     private TaskRealmAdapter taskRealmAdapter;
+    private ManagerDb managerDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class MainActivity1 extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ManagerDb managerDb = new ManagerDb();
+        managerDb = new ManagerDb();
 
 
         fabAdd = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
@@ -155,9 +157,7 @@ public class MainActivity1 extends AppCompatActivity
         managerDb.insertTask(task7);
         managerDb.insertTask(task8);
 
-
         RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
-
 
         taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, false, false);
 
@@ -205,12 +205,14 @@ public class MainActivity1 extends AppCompatActivity
         return true;
     }
 
+    // TODO
     @Override
     public boolean onQueryTextSubmit(String query) {
         Log.i("QUERY COMPLETED", query);
         return false;
     }
 
+    // TODO
     @Override
     public boolean onQueryTextChange(String newText) {
         Log.i("ON THE FLY", newText);
@@ -223,13 +225,23 @@ public class MainActivity1 extends AppCompatActivity
 
         LayoutInflater li = LayoutInflater.from(this);
         View dialogView = li.inflate(R.layout.task_dialog_view, null);
-        final EditText input = (EditText) dialogView.findViewById(R.id.dialogTitleInput);
+        final EditText inputTitle = (EditText) dialogView.findViewById(R.id.dialogTitleInput);
+        final EditText inputDescription = (EditText) dialogView.findViewById(R.id.dialogDescriptionInput);
 
         builder.setView(dialogView);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                // TODO implement add todo
+                String uniqueId = UUID.randomUUID().toString();
+                Task taskToIntro = new Task();
+                taskToIntro.setId(uniqueId);
+                taskToIntro.setTitle(inputTitle.getText().toString());
+                taskToIntro.setDescription(inputDescription.getText().toString());
+                taskToIntro.setCreatedAt(new Date());
+                taskToIntro.setDone(false);
+
+                managerDb.insertTask(taskToIntro);
+
             }
         });
 
@@ -241,7 +253,7 @@ public class MainActivity1 extends AppCompatActivity
         });
 
         final AlertDialog dialog = builder.show();
-        input.setOnEditorActionListener(
+        inputTitle.setOnEditorActionListener(
                 new EditText.OnEditorActionListener(){
 
                     @Override

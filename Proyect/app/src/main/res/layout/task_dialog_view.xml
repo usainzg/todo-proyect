@@ -11,7 +11,7 @@
         android:gravity="center_horizontal"
         android:text="@string/dialog_task_title"
         android:textStyle="bold"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -20,6 +20,11 @@
         android:layout_marginTop="10dp"
         android:maxLines="1"
         android:imeOptions="actionDone"
-        android:hint="@string/dialog_task_hint_title"
-        />
+        android:hint="@string/dialog_task_hint_title" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialogDescriptionInput"
+        android:hint="@string/dialog_task_hint_description" />
 </LinearLayout>

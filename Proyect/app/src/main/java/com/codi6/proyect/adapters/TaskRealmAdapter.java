@@ -3,7 +3,6 @@ package com.codi6.proyect.adapters;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,7 +56,7 @@ public class TaskRealmAdapter extends RealmBasedRecyclerViewAdapter<Task, TaskRe
         final Task task = realmResults.get(i);
         viewHolder.title.setText(task.getTitle());
         viewHolder.content.setText(task.getDescription());
-        viewHolder.label.setText(task.getLabel().getNombre());
+        viewHolder.label.setText(task.getLabel() != null ? task.getLabel().getNombre(): "");
     }
 
 

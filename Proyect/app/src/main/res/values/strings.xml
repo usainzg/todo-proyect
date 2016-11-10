@@ -25,7 +25,7 @@
     <string name="dialog_main_title">Create A Task</string>
     <string name="dialog_task_title">What do you want to save?</string>
     <string name="dialog_task_hint_title">Intro task title here</string>
-
+    <string name="dialog_task_hint_description">Intro task description here</string>
 
     <string name="task_empty_list">Looks like you are all done\n(or haven\'t added anything)!</string>
 </resources>
