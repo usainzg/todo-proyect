@@ -26,9 +26,24 @@ public class TaskRealmAdapter extends RealmBasedRecyclerViewAdapter<Task, TaskRe
             Context context,
             RealmResults<Task> realmResults,
             boolean automaticUpdates,
-            boolean animateResults){
+            boolean animateResults) {
 
         super(context, realmResults, automaticUpdates, animateResults);
+    }
+
+    @Override
+    public ViewHolder onCreateRealmViewHolder(ViewGroup viewGroup, int i) {
+        View v = inflater.inflate(R.layout.fragment_item, viewGroup, false);
+        ViewHolder vh = new ViewHolder((LinearLayout) v);
+        return vh;
+    }
+
+    @Override
+    public void onBindRealmViewHolder(ViewHolder viewHolder, int i) {
+        final Task task = realmResults.get(i);
+        viewHolder.title.setText(task.getTitle());
+        viewHolder.content.setText(task.getDescription());
+        viewHolder.label.setText(task.getLabel() != null ? task.getLabel().getNombre() : "");
     }
 
     public class ViewHolder extends RealmViewHolder {
@@ -55,24 +70,6 @@ public class TaskRealmAdapter extends RealmBasedRecyclerViewAdapter<Task, TaskRe
             });
         }
     }
-
-
-    @Override
-    public ViewHolder onCreateRealmViewHolder(ViewGroup viewGroup, int i) {
-        View v = inflater.inflate(R.layout.fragment_item, viewGroup, false);
-        ViewHolder vh = new ViewHolder((LinearLayout) v);
-        return vh;
-    }
-
-    @Override
-    public void onBindRealmViewHolder(ViewHolder viewHolder, int i) {
-        final Task task = realmResults.get(i);
-        viewHolder.title.setText(task.getTitle());
-        viewHolder.content.setText(task.getDescription());
-        viewHolder.label.setText(task.getLabel() != null ? task.getLabel().getNombre(): "");
-    }
-
-
 
 
 }

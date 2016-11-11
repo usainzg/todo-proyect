@@ -14,7 +14,8 @@ public class Label extends RealmObject {
     private String nombre;
     private RealmList<Task> tasks;
 
-    public Label(){}
+    public Label() {
+    }
 
     public Label(String nombre) {
         this.nombre = nombre;

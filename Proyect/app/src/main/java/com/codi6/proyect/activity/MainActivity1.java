@@ -2,21 +2,16 @@ package com.codi6.proyect.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.wifi.p2p.WifiP2pManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codi6.proyect.R;
 import com.codi6.proyect.adapters.TaskRealmAdapter;
@@ -40,8 +34,8 @@ import java.util.Date;
 import java.util.UUID;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
+import co.moonmonkeylabs.realmsearchview.RealmSearchView;
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
@@ -56,6 +50,7 @@ public class MainActivity1 extends AppCompatActivity
     private RealmRecyclerView realmRecyclerView;
     private TaskRealmAdapter taskRealmAdapter;
     private ManagerDb managerDb;
+    private RealmSearchView realmSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +58,7 @@ public class MainActivity1 extends AppCompatActivity
         setContentView(R.layout.activity_main1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        realmSearchView = (RealmSearchView) findViewById(R.id.search_view);
 
         managerDb = new ManagerDb();
 
@@ -86,7 +82,7 @@ public class MainActivity1 extends AppCompatActivity
             }
         });
 
-        
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -103,7 +99,7 @@ public class MainActivity1 extends AppCompatActivity
 
 
         // hardcoded data for test
-
+        /*
         Task task = new Task();
         task.setId("001");
         task.setTitle("TITLE 1");
@@ -163,8 +159,9 @@ public class MainActivity1 extends AppCompatActivity
         task8.setLabel(new Label("Ingles"));
         task8.setDescription("Test task to prove app.");
         // end test
+        */
 
-
+        /*
         managerDb.insertTask(task);
         managerDb.insertTask(task2);
         managerDb.insertTask(task3);
@@ -173,6 +170,7 @@ public class MainActivity1 extends AppCompatActivity
         managerDb.insertTask(task6);
         managerDb.insertTask(task7);
         managerDb.insertTask(task8);
+        */
 
         RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
 
@@ -197,8 +195,9 @@ public class MainActivity1 extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu, menu);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.actionSearch));
-        searchView.setOnQueryTextListener(this);
+
+        // TODO
+        //realmSearchView
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -209,7 +208,7 @@ public class MainActivity1 extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_tasks) {
-            
+
         } else if (id == R.id.nav_labels) {
 
         } else if (id == R.id.nav_settings) {
@@ -237,7 +236,7 @@ public class MainActivity1 extends AppCompatActivity
     }
 
 
-    private void buildAndShowInputDialog(){
+    private void buildAndShowInputDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity1.this);
         builder.setTitle(R.string.dialog_main_title);
 
@@ -263,7 +262,7 @@ public class MainActivity1 extends AppCompatActivity
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
@@ -272,7 +271,7 @@ public class MainActivity1 extends AppCompatActivity
 
         final AlertDialog dialog = builder.show();
         inputTitle.setOnEditorActionListener(
-                new EditText.OnEditorActionListener(){
+                new EditText.OnEditorActionListener() {
 
                     @Override
                     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -284,7 +283,7 @@ public class MainActivity1 extends AppCompatActivity
         );
     }
 
-    private void showCamera(){
+    private void showCamera() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
@@ -293,7 +292,7 @@ public class MainActivity1 extends AppCompatActivity
 
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         realm.close();
         realm = null;

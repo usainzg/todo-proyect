@@ -5,13 +5,34 @@ import com.codi6.proyect.model.Task;
 import io.realm.RealmResults;
 
 /**
- * Created by unaisainz on 9/11/16.
+ * @author:unaisainz
  */
 
 public interface TaskManager {
-    Task findTask(final String id);
+
+    /**
+     * @return devuelve un objeto task que tenga el titulo que pasamos por parametro
+     * @param title
+     */
+    Task findTask(final String title);
+
+    /**
+     * @return: devuelve todos los objetos TASKs que tenemos almacenado en la base de datos
+     * @param
+     */
     RealmResults<Task> findTasks();
+
+    /**
+     * @return: no devuele nada.
+     * @param task
+     * @throws: lanza una excepcion si el objeto no se ha guardado.
+     */
     void insertTask(final Task task);
-    void removeTask(final String id);
+
+    /**
+     * @param title
+     */
+    void removeTask(final String title);
+
     void deleteCompleted();
 }
