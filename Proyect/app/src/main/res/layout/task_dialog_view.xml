@@ -20,11 +20,13 @@
         android:layout_marginTop="10dp"
         android:maxLines="1"
         android:imeOptions="actionDone"
-        android:hint="@string/dialog_task_hint_title" />
+        android:hint="@string/dialog_task_hint_title"
+        android:textSize="16sp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/dialogDescriptionInput"
-        android:hint="@string/dialog_task_hint_description" />
+        android:hint="@string/dialog_task_hint_description"
+        android:textSize="14sp" />
 </LinearLayout>
