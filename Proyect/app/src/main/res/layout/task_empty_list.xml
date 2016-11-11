@@ -11,5 +11,5 @@
         android:gravity="center_horizontal"
         android:text="@string/task_empty_list"
         android:textSize="24sp"
-        />
+        android:textStyle="normal|bold" />
 </FrameLayout>

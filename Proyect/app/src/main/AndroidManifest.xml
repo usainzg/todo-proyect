@@ -3,6 +3,10 @@
     package="com.codi6.proyect">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true"
+        />
+
 
     <application
         android:name=".app.App"

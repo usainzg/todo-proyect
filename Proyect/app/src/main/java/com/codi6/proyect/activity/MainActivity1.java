@@ -1,9 +1,11 @@
 package com.codi6.proyect.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
@@ -46,7 +48,10 @@ import io.realm.Sort;
 public class MainActivity1 extends AppCompatActivity
         implements OnNavigationItemSelectedListener, OnQueryTextListener {
 
-    private com.getbase.floatingactionbutton.FloatingActionButton fabAdd;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+
+    private com.getbase.floatingactionbutton.FloatingActionButton fabAdd, fabCamera;
     private Realm realm;
     private RealmRecyclerView realmRecyclerView;
     private TaskRealmAdapter taskRealmAdapter;
@@ -62,6 +67,7 @@ public class MainActivity1 extends AppCompatActivity
         managerDb = new ManagerDb();
 
 
+        fabCamera = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_camera);
         fabAdd = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
 
         fabAdd.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +79,14 @@ public class MainActivity1 extends AppCompatActivity
             }
         });
 
+        fabCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCamera();
+            }
+        });
+
+        
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -222,6 +236,7 @@ public class MainActivity1 extends AppCompatActivity
         return false;
     }
 
+
     private void buildAndShowInputDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity1.this);
         builder.setTitle(R.string.dialog_main_title);
@@ -268,6 +283,14 @@ public class MainActivity1 extends AppCompatActivity
                 }
         );
     }
+
+    private void showCamera(){
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
 
     @Override
     protected void onDestroy(){
