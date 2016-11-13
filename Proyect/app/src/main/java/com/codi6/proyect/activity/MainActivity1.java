@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.codi6.proyect.R;
+import com.codi6.proyect.adapters.SearchQueryCompletedAdapter;
 import com.codi6.proyect.adapters.TaskRealmAdapter;
 import com.codi6.proyect.bbdd.ManagerDb;
 import com.codi6.proyect.model.Label;
@@ -50,7 +51,6 @@ public class MainActivity1 extends AppCompatActivity
     private RealmRecyclerView realmRecyclerView;
     private TaskRealmAdapter taskRealmAdapter;
     private ManagerDb managerDb;
-    private RealmSearchView realmSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,6 @@ public class MainActivity1 extends AppCompatActivity
         setContentView(R.layout.activity_main1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        realmSearchView = (RealmSearchView) findViewById(R.id.search_view);
 
         managerDb = new ManagerDb();
 
@@ -195,9 +194,8 @@ public class MainActivity1 extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu, menu);
-
-        // TODO
-        //realmSearchView
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.actionSearch));
+        searchView.setOnQueryTextListener(this);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -224,14 +222,21 @@ public class MainActivity1 extends AppCompatActivity
     // TODO
     @Override
     public boolean onQueryTextSubmit(String query) {
-        Log.i("QUERY COMPLETED", query);
+        RealmResults<Task> tasks = managerDb.findTask(query);
+        SearchQueryCompletedAdapter searchQueryCompletedAdapter = new SearchQueryCompletedAdapter(
+                getApplicationContext(), tasks, false, false
+        );
+        realmRecyclerView.setAdapter(searchQueryCompletedAdapter);
+
+
         return false;
     }
 
     // TODO
     @Override
     public boolean onQueryTextChange(String newText) {
-        Log.i("ON THE FLY", newText);
+
+
         return false;
     }
 

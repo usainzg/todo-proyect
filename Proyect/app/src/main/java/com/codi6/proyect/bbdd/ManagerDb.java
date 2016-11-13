@@ -15,12 +15,12 @@ public class ManagerDb implements TaskManager {
 
 
     @Override
-    public Task findTask(String id) {
+    public RealmResults<Task> findTask(String title) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        Task task = realm.where(Task.class).equalTo("id", id).findAll().first();
+        RealmResults<Task> tasks = realm.where(Task.class).equalTo("title", title).findAll();
         realm.close();
-        return task;
+        return tasks;
     }
 
     @Override

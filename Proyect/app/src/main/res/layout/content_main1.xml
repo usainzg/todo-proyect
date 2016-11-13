@@ -11,7 +11,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.codi6.proyect.activity.MainActivity1"
-    tools:showIn="@layout/app_bar_main1">
+    tools:showIn="@layout/app_bar_main1"
+    android:background="#ECEDF0">
 
     <include
         layout="@layout/fragment_item_list"

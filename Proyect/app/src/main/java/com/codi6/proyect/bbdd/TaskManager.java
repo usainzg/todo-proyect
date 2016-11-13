@@ -14,7 +14,7 @@ public interface TaskManager {
      * @return devuelve un objeto task que tenga el titulo que pasamos por parametro
      * @param title
      */
-    Task findTask(final String title);
+    RealmResults<Task> findTask(final String title);
 
     /**
      * @return: devuelve todos los objetos TASKs que tenemos almacenado en la base de datos
