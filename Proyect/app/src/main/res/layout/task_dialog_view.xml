@@ -25,9 +25,16 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/dialogDescriptionInput"
+    android:id="@+id/dialogDescriptionInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="@string/dialog_task_hint_description"
+    android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/dialogLabelInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/dialog_task_hint_description"
+        android:hint="@string/dialog_task_hint_label"
         android:textSize="14sp" />
 </LinearLayout>

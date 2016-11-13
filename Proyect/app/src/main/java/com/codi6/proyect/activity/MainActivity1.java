@@ -173,7 +173,7 @@ public class MainActivity1 extends AppCompatActivity
 
         RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
 
-        taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, false, false);
+        taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, true, false);
 
         realmRecyclerView.setAdapter(taskRealmAdapter);
 
@@ -222,13 +222,18 @@ public class MainActivity1 extends AppCompatActivity
     // TODO
     @Override
     public boolean onQueryTextSubmit(String query) {
-        RealmResults<Task> tasks = managerDb.findTask(query);
-        SearchQueryCompletedAdapter searchQueryCompletedAdapter = new SearchQueryCompletedAdapter(
-                getApplicationContext(), tasks, false, false
-        );
-        realmRecyclerView.setAdapter(searchQueryCompletedAdapter);
 
-
+        if(query.equals("") || query.equals(null)) {
+            RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
+            taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, false, false);
+            realmRecyclerView.setAdapter(taskRealmAdapter);
+        }else {
+            RealmResults<Task> tasks = managerDb.findTask(query);
+            SearchQueryCompletedAdapter searchQueryCompletedAdapter = new SearchQueryCompletedAdapter(
+                    getApplicationContext(), tasks, true, false
+            );
+            realmRecyclerView.setAdapter(searchQueryCompletedAdapter);
+        }
         return false;
     }
 
