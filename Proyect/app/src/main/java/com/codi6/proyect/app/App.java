@@ -17,9 +17,12 @@ public class App extends Application {
 
         Realm.init(this);
 
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
-        Realm.deleteRealm(realmConfiguration);
-        Realm.setDefaultConfiguration(realmConfiguration);
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("myrealm.realm")
+                .deleteRealmIfMigrationNeeded()
+                .build();
+
+        Realm realm = Realm.getInstance(config);
     }
 
 }
