@@ -7,6 +7,6 @@
     android:layout_height="match_parent"
     app:rrvEmptyLayoutId="@layout/task_empty_list"
     app:rrvLayoutType="LinearLayout"
-    android:background="#ECEDF0" />
-    <!--app:rrvSwipeToDelete="true" />-->
+    android:background="#ECEDF0"
+    app:rrvSwipeToDelete="true" />
 

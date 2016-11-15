@@ -19,6 +19,7 @@ public class App extends Application {
 
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .name("tasks.realm")
+                .deleteRealmIfMigrationNeeded()
                 .build();
 
         Realm.setDefaultConfiguration(config);

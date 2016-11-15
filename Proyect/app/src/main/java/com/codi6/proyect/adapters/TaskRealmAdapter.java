@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.codi6.proyect.R;
 import com.codi6.proyect.model.Task;
 
+import io.realm.Realm;
 import io.realm.RealmBasedRecyclerViewAdapter;
 import io.realm.RealmResults;
 import io.realm.RealmViewHolder;
@@ -51,8 +52,6 @@ public class TaskRealmAdapter extends RealmBasedRecyclerViewAdapter<Task, TaskRe
         public TextView content;
         public TextView label;
         public CardView card_task;
-        public Button btn_delete_task;
-
 
         public ViewHolder(LinearLayout container) {
             super(container);
@@ -60,9 +59,9 @@ public class TaskRealmAdapter extends RealmBasedRecyclerViewAdapter<Task, TaskRe
             this.content = (TextView) container.findViewById(R.id.task_content);
             this.label = (TextView) container.findViewById(R.id.task_label);
             this.card_task = (CardView) container.findViewById(R.id.card_task);
-            this.btn_delete_task = (Button) container.findViewById(R.id.btn_task_delete);
 
         }
+
 
 
 
