@@ -5,7 +5,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_search_title">Search...</string>
+    <string name="action_search_title">Search…</string>
 
     <string name="nav_support_name">Unai Sainz de la Maza Gamboa</string>
     <string name="nav_support_email">unaihtc70@gmail.com</string>
@@ -15,7 +15,6 @@
     <string name="drawer_menu_txt_settings">Settings</string>
     <string name="drawer_menu_txt_help">Help and feedback</string>
 
-    <string name="floating_menu_add">Add task</string>
     <string name="floating_menu_camera">Open camera</string>
 
     <string name="dialog_main_title">Create A Task</string>
@@ -33,12 +32,7 @@
 
     <string name="settings_text_view_lenguage">Select lenguage: </string>
     <string name="settings_text_view_music">Music ? </string>
-    <string name="settings_text_radio_english">English</string>
-    <string name="settings_text_radio_euskera">Basque</string>
-    <string name="settings_text_radio_castellano">Spanish</string>
+    <string name="settings_lang_on">ON</string>
+    <string name="settings_lang_off">OFF</string>
 
-    <string name="edit_task_dialog_title">So, you want to update your task?</string>
-    <string name="edit_task_title_hint">Edit title here</string>
-    <string name="edit_task_description_hint">Edit description here</string>
-    <string name="edit_task_label_hint">Edit label here</string>
 </resources>

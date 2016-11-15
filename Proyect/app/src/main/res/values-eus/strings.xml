@@ -6,7 +6,7 @@
     <string name="navigation_drawer_open">Zabaldu menu laterala</string>
     <string name="navigation_drawer_close">Itxi menu laterala</string>
 
-    <string name="action_search_title">Bilatu...</string>
+    <string name="action_search_title">Bilatu…</string>
 
     <string name="nav_support_name">Unai Sainz de la Maza Gamboa</string>
     <string name="nav_support_email">unaihtc70@gmail.com</string>
@@ -16,7 +16,6 @@
     <string name="drawer_menu_txt_settings">Ezarpenak</string>
     <string name="drawer_menu_txt_help">Laguntza eta feedbacka</string>
 
-    <string name="floating_menu_add">Zeregina gehitu</string>
     <string name="floating_menu_camera">Zabaldu argazki-kamera</string>
 
     <string name="dialog_main_title">Zeregina sortu</string>
@@ -34,12 +33,7 @@
 
     <string name="settings_text_view_lenguage">Aukeratu hizkuntza: </string>
     <string name="settings_text_view_music">Musikarik nahi ? </string>
-    <string name="settings_text_radio_english">Ingelera</string>
-    <string name="settings_text_radio_euskera">Euskera</string>
-    <string name="settings_text_radio_castellano">Gaztelera</string>
+    <string name="settings_lang_on">PIZTUTA</string>
+    <string name="settings_lang_off">ITZALITA</string>
 
-    <string name="edit_task_dialog_title">Zeregina aldatu?</string>
-    <string name="edit_task_title_hint">Aldatu hemen titulua</string>
-    <string name="edit_task_description_hint">Aldatu hemen deskribapena</string>
-    <string name="edit_task_label_hint">Aldatu hemen labela</string>
 </resources>

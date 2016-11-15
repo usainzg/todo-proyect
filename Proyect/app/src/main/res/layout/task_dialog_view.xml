@@ -21,19 +21,22 @@
         android:layout_marginTop="10dp"
         android:hint="@string/dialog_task_hint_title"
         android:imeOptions="actionDone"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:inputType="text|textCapWords" />
 
     <EditText
     android:id="@+id/dialogDescriptionInput"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="@string/dialog_task_hint_description"
-    android:textSize="14sp" />
+    android:textSize="14sp"
+        android:inputType="text|textCapSentences|textMultiLine" />
 
     <EditText
         android:id="@+id/dialogLabelInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/dialog_task_hint_label"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:inputType="text|textCapCharacters" />
 </LinearLayout>

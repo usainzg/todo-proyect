@@ -1,13 +1,10 @@
 package com.codi6.proyect.bbdd;
 
-import android.util.Log;
-
 import com.codi6.proyect.model.Task;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
-import io.realm.internal.Context;
 
 /**
  * Created by unaisainz on 8/11/16.

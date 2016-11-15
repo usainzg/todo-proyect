@@ -19,17 +19,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -48,6 +45,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
+@SuppressWarnings("ALL")
 public class MainActivity1 extends AppCompatActivity
         implements OnNavigationItemSelectedListener, OnQueryTextListener {
 
@@ -258,7 +256,6 @@ public class MainActivity1 extends AppCompatActivity
         return true;
     }
 
-    // TODO
     @Override
     public boolean onQueryTextSubmit(String query) {
 
@@ -283,7 +280,6 @@ public class MainActivity1 extends AppCompatActivity
 
     }
 
-    // TODO
     @Override
     public boolean onQueryTextChange(String newText) {
         if(newText.equals("")){

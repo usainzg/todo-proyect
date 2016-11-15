@@ -4,14 +4,12 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codi6.proyect.R;
 import com.codi6.proyect.model.Task;
 
-import io.realm.Realm;
 import io.realm.RealmBasedRecyclerViewAdapter;
 import io.realm.RealmResults;
 import io.realm.RealmViewHolder;
