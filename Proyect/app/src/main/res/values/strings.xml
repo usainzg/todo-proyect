@@ -12,7 +12,6 @@
     <string name="nav_img_description">Support image</string>
 
     <string name="drawer_menu_txt_tasks">Tasks</string>
-    <string name="drawer_menu_txt_labels">Labels</string>
     <string name="drawer_menu_txt_settings">Settings</string>
     <string name="drawer_menu_txt_help">Help and feedback</string>
 
@@ -30,7 +29,7 @@
     <string name="support_email_subject">Intro here subject.</string>
     <string name="support_email_body">Intro here body.</string>
     <string name="support_email_not_client">There are no email clients installed.</string>
-    <string name="support_email_send">Send email...</string>
+    <string name="support_email_send">Send email.</string>
 
     <string name="settings_text_view_lenguage">Select lenguage: </string>
     <string name="settings_text_view_music">Music ? </string>

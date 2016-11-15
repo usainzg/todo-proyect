@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gestor de Tareas</string>
+    <string name="title_activity_main1">Gestor de Tareas</string>
+
+    <string name="navigation_drawer_open">Abrir menu lateral</string>
+    <string name="navigation_drawer_close">Cerrar menu lateral</string>
+
+    <string name="action_search_title">Buscar</string>
+
+    <string name="nav_support_name">Unai Sainz de la Maza Gamboa</string>
+    <string name="nav_support_email">unaihtc70@gmail.com</string>
+    <string name="nav_img_description">Imagen soporte</string>
+
+    <string name="drawer_menu_txt_tasks">Tareas</string>
+    <string name="drawer_menu_txt_settings">Ajustes</string>
+    <string name="drawer_menu_txt_help">Ayuda y feedback</string>
+
+    <string name="floating_menu_add">Añadir tarea</string>
+    <string name="floating_menu_camera">Abrir cámara</string>
+
+    <string name="dialog_main_title">Crear tarea</string>
+    <string name="dialog_task_title">¿Que quieres guardar?</string>
+    <string name="dialog_task_hint_title">Introduce aquí el titulo de la tarea</string>
+    <string name="dialog_task_hint_description">Introduce aquí la descripcion</string>
+    <string name="dialog_task_hint_label">Introduce aquí el label</string>
+
+    <string name="task_empty_list">Parece que tienes todo hecho\n(o no has añadido nada)!</string>
+
+    <string name="support_email_subject">Introduce aquí el tema</string>
+    <string name="support_email_body">Introduce aquí el cuerpo.</string>
+    <string name="support_email_not_client">No tienes clientes de email instalados.</string>
+    <string name="support_email_send">Mandar email.</string>
+
+    <string name="settings_text_view_lenguage">Elegir lenguaje: </string>
+    <string name="settings_text_view_music">Música ? </string>
+    <string name="settings_text_radio_english">Ingles</string>
+    <string name="settings_text_radio_euskera">Euskera</string>
+    <string name="settings_text_radio_castellano">Castellano</string>
+
+    <string name="edit_task_dialog_title">¿Modificar una tarea?</string>
+    <string name="edit_task_title_hint">Edita aquí el titulo</string>
+    <string name="edit_task_description_hint">Edita aquí la descripcion</string>
+    <string name="edit_task_label_hint">Edita aquí el label</string>
+</resources>

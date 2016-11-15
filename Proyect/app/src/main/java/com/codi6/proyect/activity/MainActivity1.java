@@ -83,7 +83,7 @@ public class MainActivity1 extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if(musicBtn.isChecked()){
-                    //media = MediaPlayer.create(this, R.raw.background);
+                    media = MediaPlayer.create(getApplicationContext(), R.raw.music);
                     media.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
