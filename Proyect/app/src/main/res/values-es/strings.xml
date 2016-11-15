@@ -6,7 +6,7 @@
     <string name="navigation_drawer_open">Abrir menu lateral</string>
     <string name="navigation_drawer_close">Cerrar menu lateral</string>
 
-    <string name="action_search_title">Buscar</string>
+    <string name="action_search_title">Buscar...</string>
 
     <string name="nav_support_name">Unai Sainz de la Maza Gamboa</string>
     <string name="nav_support_email">unaihtc70@gmail.com</string>

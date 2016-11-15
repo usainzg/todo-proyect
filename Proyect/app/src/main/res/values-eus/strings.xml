@@ -6,7 +6,7 @@
     <string name="navigation_drawer_open">Zabaldu menu laterala</string>
     <string name="navigation_drawer_close">Itxi menu laterala</string>
 
-    <string name="action_search_title">Bilatu</string>
+    <string name="action_search_title">Bilatu...</string>
 
     <string name="nav_support_name">Unai Sainz de la Maza Gamboa</string>
     <string name="nav_support_email">unaihtc70@gmail.com</string>
