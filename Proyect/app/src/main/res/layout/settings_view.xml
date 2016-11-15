@@ -22,32 +22,34 @@
             android:textAlignment="center"
              />
 
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
 
-                <RadioButton
-                    android:text="@string/settings_text_radio_english"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/radioButton"
-                    android:checked="true"/>
-
-                <RadioButton
-                    android:text="@string/settings_text_radio_euskera"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/radioButton2" />
-
-                <RadioButton
-                    android:text="@string/settings_text_radio_castellano"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/radioButton3" />
-
-
-
-        </RadioGroup>
+                <Button
+                    android:layout_height="45dp"
+                    android:id="@+id/btn_lang_basque"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:background="@drawable/ic_basque_country"
+                    android:layout_width="45dp" />
+                <Button
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:id="@+id/btn_lang_spanish"
+                    android:background="@drawable/ic_spain"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+                <Button
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:id="@+id/btn_lang_english"
+                    android:background="@drawable/ic_united_kingdom"
+                    style="@style/Widget.AppCompat.Button.Borderless" />
+        </LinearLayout>
 
         <TextView
             android:text="@string/settings_text_view_music"
@@ -66,7 +68,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="15sp"
             android:checked="false" />
-
 
 
 </LinearLayout>

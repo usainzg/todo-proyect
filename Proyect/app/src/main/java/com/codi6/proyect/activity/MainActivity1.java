@@ -2,10 +2,10 @@ package com.codi6.proyect.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -35,9 +33,9 @@ import com.codi6.proyect.adapters.SearchQueryCompletedAdapter;
 import com.codi6.proyect.adapters.TaskRealmAdapter;
 import com.codi6.proyect.bbdd.ManagerDb;
 import com.codi6.proyect.model.Task;
-import com.google.android.gms.vision.text.Line;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
@@ -65,6 +63,8 @@ public class MainActivity1 extends AppCompatActivity
     // SETTINGS REFERENCIAS
     private ToggleButton musicBtn;
     private MediaPlayer media;
+    private Button basqueBtn, esBtn, enBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +76,16 @@ public class MainActivity1 extends AppCompatActivity
         settings = (LinearLayout) findViewById(R.id.settings_view);
         task_view = (RelativeLayout) findViewById(R.id.content_main1);
 
+        basqueBtn = (Button) findViewById(R.id.btn_lang_basque);
+        esBtn = (Button) findViewById(R.id.btn_lang_spanish);
+        enBtn = (Button) findViewById(R.id.btn_lang_english);
 
         musicBtn = (ToggleButton) findViewById(R.id.musicBtn);
 
         musicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(musicBtn.isChecked()){
+                if (musicBtn.isChecked()) {
                     media = MediaPlayer.create(getApplicationContext(), R.raw.music);
                     media.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
@@ -96,12 +99,35 @@ public class MainActivity1 extends AppCompatActivity
                             mp.start();
                         }
                     });
-                }else {
+                } else {
                     media.stop();
                 }
 
             }
         });
+
+        basqueBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLanguage("eus");
+            }
+        });
+
+        esBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLanguage("es");
+            }
+        });
+
+        enBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLanguage("en");
+            }
+        });
+
+
         managerDb = new ManagerDb();
 
         fabMenu = (com.getbase.floatingactionbutton.FloatingActionsMenu) findViewById(R.id.menu_add);
@@ -146,6 +172,18 @@ public class MainActivity1 extends AppCompatActivity
 
     }
 
+    private void changeLanguage(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
+        Intent refresh = new Intent(MainActivity1.this, MainActivity1.class);
+        startActivity(refresh);
+        finish();
+    }
 
     @Override
     public void onBackPressed() {
@@ -188,9 +226,9 @@ public class MainActivity1 extends AppCompatActivity
 
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("message/rfc822");
-            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"unaihtc70@gmail.com"});
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{"unaihtc70@gmail.com"});
             i.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.support_email_subject));
-            i.putExtra(Intent.EXTRA_TEXT   , getResources().getString(R.string.support_email_body));
+            i.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.support_email_body));
             try {
                 startActivity(Intent.createChooser(i, getResources().getString(R.string.support_email_send)));
             } catch (android.content.ActivityNotFoundException ex) {
@@ -207,11 +245,11 @@ public class MainActivity1 extends AppCompatActivity
     @Override
     public boolean onQueryTextSubmit(String query) {
 
-        if(query.equals("") || query.equals(null)) {
+        if (query.equals("") || query.equals(null)) {
             RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
             taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, false, false);
             realmRecyclerView.setAdapter(taskRealmAdapter);
-        }else {
+        } else {
             RealmResults<Task> tasks = managerDb.findTask(query);
             SearchQueryCompletedAdapter searchQueryCompletedAdapter = new SearchQueryCompletedAdapter(
                     getApplicationContext(), tasks, true, false
@@ -265,7 +303,6 @@ public class MainActivity1 extends AppCompatActivity
     }
 
 
-    // INTENT camara
     private void showCamera() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (cameraIntent.resolveActivity(getPackageManager()) != null) {

@@ -2,7 +2,6 @@ package com.codi6.proyect.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -13,15 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codi6.proyect.R;
-import com.codi6.proyect.activity.MainActivity1;
 import com.codi6.proyect.bbdd.ManagerDb;
 import com.codi6.proyect.model.Task;
 
 import java.util.Date;
-import java.util.UUID;
 
 import io.realm.RealmBasedRecyclerViewAdapter;
 import io.realm.RealmResults;
