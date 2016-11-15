@@ -44,19 +44,18 @@ public class ManagerDb implements TaskManager {
             realm.close();
 
         } catch (Exception e) {
-            // TODO
             Log.e("ERROR --> ", "error" + e.getMessage());
         }
     }
 
     @Override
-    public void removeTask(final String id) {
+    public void removeTask(final String title) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        RealmResults<Task> tasksToRemove = realm.where(Task.class).equalTo("id", id).findAll();
+        RealmResults<Task> tasksToRemove = realm.where(Task.class).equalTo("title", title).findAll();
 
         if (!tasksToRemove.isEmpty()) {
-            for (int i = tasksToRemove.size() - 1; i >= 0; i++) {
+            for (int i = 0; i < tasksToRemove.size(); i++) {
                 tasksToRemove.get(i).deleteFromRealm();
             }
         }

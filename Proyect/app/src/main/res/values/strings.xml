@@ -11,16 +11,13 @@
     <string name="nav_support_email">unaihtc70@gmail.com</string>
     <string name="nav_img_description">Support image</string>
 
-
     <string name="drawer_menu_txt_tasks">Tasks</string>
     <string name="drawer_menu_txt_labels">Labels</string>
     <string name="drawer_menu_txt_settings">Settings</string>
     <string name="drawer_menu_txt_help">Help and feedback</string>
 
-
     <string name="floating_menu_add">Add task</string>
     <string name="floating_menu_camera">Open camera</string>
-
 
     <string name="dialog_main_title">Create A Task</string>
     <string name="dialog_task_title">What do you want to save?</string>
@@ -29,4 +26,20 @@
     <string name="dialog_task_hint_label">Intro task label name here</string>
 
     <string name="task_empty_list">Looks like you are all done\n(or haven\'t added anything)!</string>
+
+    <string name="support_email_subject">Intro here subject.</string>
+    <string name="support_email_body">Intro here body.</string>
+    <string name="support_email_not_client">There are no email clients installed.</string>
+    <string name="support_email_send">Send email...</string>
+
+    <string name="settings_text_view_lenguage">Select lenguage: </string>
+    <string name="settings_text_view_music">Music ? </string>
+    <string name="settings_text_radio_english">English</string>
+    <string name="settings_text_radio_euskera">Basque</string>
+    <string name="settings_text_radio_castellano">Spanish</string>
+
+    <string name="edit_task_dialog_title">So, you want to update your task?</string>
+    <string name="edit_task_title_hint">Edit title here</string>
+    <string name="edit_task_description_hint">Edit description here</string>
+    <string name="edit_task_label_hint">Edit label here</string>
 </resources>

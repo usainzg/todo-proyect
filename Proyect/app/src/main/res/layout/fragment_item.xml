@@ -72,7 +72,7 @@
                 <Button
                     android:id="@+id/btn_task_done"
                     android:layout_height="29dp"
-                    android:background="@drawable/ic_task_done"
+                    android:background="@drawable/ic_success"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:padding="1dp"
                     android:gravity="center_vertical"
@@ -83,7 +83,7 @@
                 <Button
                     android:id="@+id/btn_task_delete"
                     android:layout_height="29dp"
-                    android:background="@drawable/ic_delete"
+                    android:background="@drawable/ic_garbage"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="35dp"
                     android:padding="1dp"

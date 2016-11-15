@@ -18,11 +18,10 @@ public class App extends Application {
         Realm.init(this);
 
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .name("myrealm.realm")
-                .deleteRealmIfMigrationNeeded()
+                .name("tasks.realm")
                 .build();
 
-        Realm realm = Realm.getInstance(config);
+        Realm.setDefaultConfiguration(config);
     }
 
 }
