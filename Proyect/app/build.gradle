@@ -5,6 +5,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25"
     defaultConfig {
+        multiDexEnabled = true
         applicationId "com.codi6.proyect"
         minSdkVersion 21
         targetSdkVersion 25
@@ -39,4 +40,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.thorbenprimke:realm-searchview:0.9.6'
+    compile 'com.android.support:multidex:1.0.1'
+
 }
