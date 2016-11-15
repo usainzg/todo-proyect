@@ -50,28 +50,35 @@ public class MainActivity1 extends AppCompatActivity
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
-
+    // FAB BUTTONS
     private com.getbase.floatingactionbutton.FloatingActionButton fabAdd, fabCamera;
     private com.getbase.floatingactionbutton.FloatingActionsMenu fabMenu;
-    private Realm realm;
-    private RealmRecyclerView realmRecyclerView;
+
+    // ADAPTER
     private TaskRealmAdapter taskRealmAdapter;
     private ManagerDb managerDb;
 
+    // REALMRECYCLERVIEW
+    private RealmRecyclerView realmRecyclerView;
+
+    // LAYOUTS
     private LinearLayout settings;
     private RelativeLayout task_view;
-
 
     // SETTINGS REFERENCIAS
     private ToggleButton musicBtn;
     private MediaPlayer media;
     private Button basqueBtn, esBtn, enBtn;
 
+    // REALM INSTACE
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main1);
+        realm = Realm.getDefaultInstance();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -81,6 +88,8 @@ public class MainActivity1 extends AppCompatActivity
         basqueBtn = (Button) findViewById(R.id.btn_lang_basque);
         esBtn = (Button) findViewById(R.id.btn_lang_spanish);
         enBtn = (Button) findViewById(R.id.btn_lang_english);
+
+
 
         musicBtn = (ToggleButton) findViewById(R.id.musicBtn);
 
@@ -164,9 +173,7 @@ public class MainActivity1 extends AppCompatActivity
 
         realmRecyclerView = (RealmRecyclerView) findViewById(R.id.list);
 
-        realm = Realm.getDefaultInstance();
-
-        RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
+        RealmResults<Task> realmResults = managerDb.findTasks();
 
         taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, true, false);
 
@@ -207,7 +214,6 @@ public class MainActivity1 extends AppCompatActivity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setQueryHint(getResources().getString(R.string.action_search_title));
         searchView.setOnQueryTextListener(this);
-
         return true;
     }
 
@@ -252,24 +258,34 @@ public class MainActivity1 extends AppCompatActivity
     @Override
     public boolean onQueryTextSubmit(String query) {
 
-        if (query.equals("") || query.equals(null)) {
-            RealmResults<Task> realmResults = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
-            taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, false, false);
+        if(query.equals("")){
+            RealmResults<Task> allTasks = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
+            taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), allTasks, true, false);
+
             realmRecyclerView.setAdapter(taskRealmAdapter);
-        } else {
+
+        }else{
             RealmResults<Task> tasks = managerDb.findTask(query);
+            if (tasks.isEmpty()) {
+                Toast.makeText(this, "No se han encontrado registros con ese titulo!", Toast.LENGTH_LONG).show();
+                return false;
+            }
             SearchQueryCompletedAdapter searchQueryCompletedAdapter = new SearchQueryCompletedAdapter(
                     getApplicationContext(), tasks, true, false
             );
             realmRecyclerView.setAdapter(searchQueryCompletedAdapter);
         }
-        return false;
+        return true;
+
     }
 
     // TODO
     @Override
     public boolean onQueryTextChange(String newText) {
-        return false;
+        if(newText.equals("")){
+            this.onQueryTextSubmit("");
+        }
+        return true;
     }
 
 
@@ -281,20 +297,28 @@ public class MainActivity1 extends AppCompatActivity
         View dialogView = li.inflate(R.layout.task_dialog_view, null);
         final EditText inputTitle = (EditText) dialogView.findViewById(R.id.dialogTitleInput);
         final EditText inputDescription = (EditText) dialogView.findViewById(R.id.dialogDescriptionInput);
+        final EditText inputLabel = (EditText) dialogView.findViewById(R.id.dialogLabelInput);
 
         builder.setView(dialogView);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
                 String uniqueId = UUID.randomUUID().toString();
-                Task taskToIntro = new Task();
+                final Task taskToIntro = new Task();
                 taskToIntro.setId(uniqueId);
                 taskToIntro.setTitle(inputTitle.getText().toString());
                 taskToIntro.setDescription(inputDescription.getText().toString());
                 taskToIntro.setCreatedAt(new Date());
                 taskToIntro.setDone(false);
+                taskToIntro.setLabel(inputLabel.getText().toString());
 
-                managerDb.insertTask(taskToIntro);
+                realm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        realm.copyToRealm(taskToIntro);
+                    }
+                });
 
             }
         });
@@ -322,6 +346,6 @@ public class MainActivity1 extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         realm.close();
-        realm = null;
+        managerDb.closeAll();
     }
 }

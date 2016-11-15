@@ -67,7 +67,7 @@ public class SearchQueryCompletedAdapter extends RealmBasedRecyclerViewAdapter<T
         final Task task = realmResults.get(i);
         viewHolder.title.setText(task.getTitle());
         viewHolder.content.setText(task.getDescription());
-        viewHolder.label.setText(task.getLabel() != null ? task.getLabel().getNombre() : "");
+        viewHolder.label.setText(task.getLabel());
     }
 
 

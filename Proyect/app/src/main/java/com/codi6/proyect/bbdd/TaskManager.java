@@ -11,28 +11,14 @@ import io.realm.RealmResults;
 public interface TaskManager {
 
     /**
-     * @return devuelve un objeto task que tenga el titulo que pasamos por parametro
      * @param title
+     * @return devuelve un objeto task que tenga el titulo que pasamos por parametro
      */
     RealmResults<Task> findTask(final String title);
 
     /**
-     * @return: devuelve todos los objetos TASKs que tenemos almacenado en la base de datos
      * @param
+     * @return: devuelve todos los objetos TASKs que tenemos almacenado en la base de datos
      */
     RealmResults<Task> findTasks();
-
-    /**
-     * @return: no devuele nada.
-     * @param task
-     * @throws: lanza una excepcion si el objeto no se ha guardado.
-     */
-    void insertTask(final Task task);
-
-    /**
-     * @param title
-     */
-    void removeTask(final String title);
-
-    void deleteCompleted();
 }

@@ -6,14 +6,18 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.codi6.proyect.R;
 
-public class ItemFragment extends Fragment {
+import io.realm.Realm;
+
+public class ItemFragment extends Fragment{
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
-    private CardView card_task;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -22,7 +26,7 @@ public class ItemFragment extends Fragment {
     public ItemFragment() {
     }
 
-    public static ItemFragment newInstance(int columnCount) {
+    public static ItemFragment newInstance(int columnCount){
         ItemFragment fragment = new ItemFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
@@ -44,8 +48,11 @@ public class ItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

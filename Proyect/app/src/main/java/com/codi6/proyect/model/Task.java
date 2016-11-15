@@ -8,7 +8,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 /**
- * Created by usainzg on 07/11/2016.
+ * Created by unaisainz on 15/11/16.
  */
 
 public class Task extends RealmObject {
@@ -20,8 +20,7 @@ public class Task extends RealmObject {
     private String title;
     private String description;
     private boolean isDone;
-    @Ignore
-    private Label label;
+    private String label;
 
     @Required
     private Date createdAt;
@@ -66,11 +65,11 @@ public class Task extends RealmObject {
         this.createdAt = createdAt;
     }
 
-    public Label getLabel() {
+    public String getLabel() {
         return label;
     }
 
-    public void setLabel(Label label) {
+    public void setLabel(String label) {
         this.label = label;
     }
 }
