@@ -27,12 +27,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.codi6.proyect.R;
 import com.codi6.proyect.adapters.SearchQueryCompletedAdapter;
 import com.codi6.proyect.adapters.TaskRealmAdapter;
+import com.codi6.proyect.app.Data;
 import com.codi6.proyect.bbdd.ManagerDb;
 import com.codi6.proyect.model.Task;
 
@@ -74,6 +76,17 @@ public class MainActivity1 extends AppCompatActivity
     // REALM INSTACE
     private Realm realm;
 
+    //Settings multi Texviews
+    private TextView text_view_languageTextView, text_view_music_settingsTextView;
+
+    // Empty lis view TextView
+    private TextView text_view_emptyList;
+
+    // Navigation view
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -92,24 +105,32 @@ public class MainActivity1 extends AppCompatActivity
         esBtn = (Button) findViewById(R.id.btn_lang_spanish);
         enBtn = (Button) findViewById(R.id.btn_lang_english);
 
+        text_view_languageTextView = (TextView) findViewById(R.id.txt_settings_lang);
+        text_view_music_settingsTextView = (TextView) findViewById(R.id.txt_settings_music);
+
+        text_view_emptyList = (TextView) findViewById(R.id.txt_empty);
+
         basqueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeLanguage("eus");
+                Data.changeLang("eus", MainActivity1.this);
+                recreate();
             }
         });
 
         esBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeLanguage("es");
+                Data.changeLang("es", MainActivity1.this);
+                recreate();
             }
         });
 
         enBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeLanguage("en");
+                Data.changeLang("en", MainActivity1.this);
+                recreate();
             }
         });
 
@@ -163,13 +184,13 @@ public class MainActivity1 extends AppCompatActivity
         });
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         // SET REALMRECYCLERVIEW
@@ -184,20 +205,15 @@ public class MainActivity1 extends AppCompatActivity
         // SET ADAPTER TO REALMRECLYCLERVIEW
         realmRecyclerView.setAdapter(taskRealmAdapter);
 
+        updateTexts();
     }
 
-    // CHANGE LANGUAGE METHOD
-    private void changeLanguage(String lang) {
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-
-        // REFRESH APP WITH REFRESH INTENT
-        Intent refresh = new Intent(MainActivity1.this, MainActivity1.class);
-        startActivity(refresh);
+    @Override
+    public void recreate()
+    {
+        Intent restart_app_intent = new Intent (MainActivity1.this, MainActivity1.class);
+        startActivity(restart_app_intent);
+        overridePendingTransition(0,0); //Remove animation in transition...
         finish();
     }
 
@@ -360,5 +376,33 @@ public class MainActivity1 extends AppCompatActivity
         super.onDestroy();
         realm.close();
         managerDb.closeAll();
+    }
+
+    //Use to update text in select language
+    private void updateTexts()
+    {
+        invalidateOptionsMenu();
+
+        Data.loadLocale(getApplicationContext());
+
+        System.out.println("Select language in app is: " + Data.getLocaleLanguage(getApplicationContext()));
+
+        //Update app title
+        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+
+        //Update Settings texts
+        text_view_languageTextView.setText(getResources().getString(R.string.settings_text_view_lenguage));
+        text_view_music_settingsTextView.setText(getResources().getString(R.string.settings_text_view_music));
+
+        // Update Empty_list texts
+        text_view_emptyList.setText(getResources().getString(R.string.task_empty_list));
+
+        //Update Left navigation menu items texts in select language
+        navigationView.getMenu().getItem(0).setTitle(getResources().getString(R.string.drawer_menu_txt_tasks));
+        navigationView.getMenu().getItem(1).setTitle(getResources().getString(R.string.drawer_menu_txt_settings));
+        navigationView.getMenu().getItem(2).setTitle(getResources().getString(R.string.drawer_menu_txt_help));
+
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
     }
 }
