@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -385,7 +386,7 @@ public class MainActivity1 extends AppCompatActivity
 
         Data.loadLocale(getApplicationContext());
 
-        System.out.println("Select language in app is: " + Data.getLocaleLanguage(getApplicationContext()));
+        Log.d("IDIOMA--> ", "Select language in app is: " + Data.getLocaleLanguage(getApplicationContext()));
 
         //Update app title
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
