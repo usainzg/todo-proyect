@@ -12,6 +12,7 @@ import io.realm.annotations.Required;
 
 public class Task extends RealmObject {
 
+
     @PrimaryKey
     private String id;
 

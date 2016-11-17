@@ -76,6 +76,7 @@ public class MainActivity1 extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main1);
 
@@ -91,7 +92,26 @@ public class MainActivity1 extends AppCompatActivity
         esBtn = (Button) findViewById(R.id.btn_lang_spanish);
         enBtn = (Button) findViewById(R.id.btn_lang_english);
 
+        basqueBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLanguage("eus");
+            }
+        });
 
+        esBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLanguage("es");
+            }
+        });
+
+        enBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLanguage("en");
+            }
+        });
 
         musicBtn = (ToggleButton) findViewById(R.id.musicBtn);
 
@@ -119,34 +139,14 @@ public class MainActivity1 extends AppCompatActivity
             }
         });
 
-        basqueBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                changeLanguage("eus");
-            }
-        });
-
-        esBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                changeLanguage("es");
-            }
-        });
-
-        enBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                changeLanguage("en");
-            }
-        });
-
-
         managerDb = new ManagerDb();
 
+        // GET FAB MENU BUTTONS REFERENCES
         fabMenu = (com.getbase.floatingactionbutton.FloatingActionsMenu) findViewById(R.id.menu_add);
         fabCamera = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_camera);
         fabAdd = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
 
+        // ADD ONCLICKLISTENER´s
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,17 +172,21 @@ public class MainActivity1 extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        // SET REALMRECYCLERVIEW
         realmRecyclerView = (RealmRecyclerView) findViewById(R.id.list);
 
+        // GET TASKS FROM REALM DATABASE
         RealmResults<Task> realmResults = managerDb.findTasks();
 
+        // BUILD ADAPTER PASSING REALMRESULT
         taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, true, false);
 
+        // SET ADAPTER TO REALMRECLYCLERVIEW
         realmRecyclerView.setAdapter(taskRealmAdapter);
 
     }
 
+    // CHANGE LANGUAGE METHOD
     private void changeLanguage(String lang) {
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
@@ -191,6 +195,7 @@ public class MainActivity1 extends AppCompatActivity
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
 
+        // REFRESH APP WITH REFRESH INTENT
         Intent refresh = new Intent(MainActivity1.this, MainActivity1.class);
         startActivity(refresh);
         finish();
@@ -208,13 +213,15 @@ public class MainActivity1 extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu, menu);
 
+        // BUILD SEARCH MANAGER
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.actionSearch));
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        // SET HINT FOR QUERIES
         searchView.setQueryHint(getResources().getString(R.string.action_search_title));
+        // SET ON QUERY LISTENER TO LISTEN SEARCH EVENT´S
         searchView.setOnQueryTextListener(this);
         return true;
     }
@@ -222,35 +229,42 @@ public class MainActivity1 extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_tasks) {
-
+            // SHOW TASK_VIEW AND FABMENU (FLOATING ICONS)
             task_view.setVisibility(View.VISIBLE);
             fabMenu.setVisibility(View.VISIBLE);
+            // HIDE OTHER INCLUDED LAYOUTS
             settings.setVisibility(View.GONE);
 
         } else if (id == R.id.nav_settings) {
-
+            // HIDE TASK_VIEW AND FABMENU (FLOATING ICONS)
             task_view.setVisibility(View.GONE);
             fabMenu.setVisibility(View.GONE);
+            // SHOW SETTINGS LAYOUT
             settings.setVisibility(View.VISIBLE);
 
         } else if (id == R.id.nav_help) {
-
+            // INTENT FOR SEND SUPPORT EMAIL
             Intent i = new Intent(Intent.ACTION_SEND);
+            // SET TYPE
             i.setType("message/rfc822");
+            // POPULATE WITH SUPPORT EMAIL
             i.putExtra(Intent.EXTRA_EMAIL, new String[]{"unaihtc70@gmail.com"});
+            // POPULATE WITH SUBJECT HINT AND BODY HINT
             i.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.support_email_subject));
             i.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.support_email_body));
             try {
+                // START INTENT WITH CHOOSER
                 startActivity(Intent.createChooser(i, getResources().getString(R.string.support_email_send)));
             } catch (android.content.ActivityNotFoundException ex) {
+                // IF THERE ARE NOT EMAIL CLIENTS INSTALLED...
                 Toast.makeText(MainActivity1.this, getResources().getString(R.string.support_email_not_client), Toast.LENGTH_SHORT).show();
             }
 
         }
+        // BUILD DRAWERLAYOUT
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -258,11 +272,9 @@ public class MainActivity1 extends AppCompatActivity
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-
         if(query.equals("")){
             RealmResults<Task> allTasks = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
             taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), allTasks, true, false);
-
             realmRecyclerView.setAdapter(taskRealmAdapter);
 
         }else{
@@ -282,6 +294,7 @@ public class MainActivity1 extends AppCompatActivity
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        // CALL onQueryTextSubmit TO EVALUATE CONTENT AND SHOW ALL TASKS
         if(newText.equals("")){
             this.onQueryTextSubmit("");
         }
