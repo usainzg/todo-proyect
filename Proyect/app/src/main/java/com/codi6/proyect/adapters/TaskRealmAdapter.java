@@ -59,15 +59,7 @@ public class TaskRealmAdapter extends RealmBasedRecyclerViewAdapter<Task, TaskRe
             this.card_task = (CardView) container.findViewById(R.id.card_task);
 
         }
-
-
-
-
-
-
     }
-
-
 }
 
 

@@ -107,7 +107,6 @@ public class MainActivity1 extends AppCompatActivity
         enBtn = (Button) findViewById(R.id.btn_lang_english);
 
         text_view_languageTextView = (TextView) findViewById(R.id.txt_settings_lang);
-        text_view_music_settingsTextView = (TextView) findViewById(R.id.txt_settings_music);
 
         text_view_emptyList = (TextView) findViewById(R.id.txt_empty);
 
@@ -135,31 +134,6 @@ public class MainActivity1 extends AppCompatActivity
             }
         });
 
-        musicBtn = (ToggleButton) findViewById(R.id.musicBtn);
-
-        musicBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (musicBtn.isChecked()) {
-                    media = MediaPlayer.create(getApplicationContext(), R.raw.music);
-                    media.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            mp.start();
-                        }
-                    });
-                    media.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mp.start();
-                        }
-                    });
-                } else {
-                    media.stop();
-                }
-
-            }
-        });
 
         managerDb = new ManagerDb();
 
@@ -172,7 +146,6 @@ public class MainActivity1 extends AppCompatActivity
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 buildAndShowInputDialog();
             }
         });
@@ -393,7 +366,6 @@ public class MainActivity1 extends AppCompatActivity
 
         //Update Settings texts
         text_view_languageTextView.setText(getResources().getString(R.string.settings_text_view_lenguage));
-        text_view_music_settingsTextView.setText(getResources().getString(R.string.settings_text_view_music));
 
         // Update Empty_list texts
         text_view_emptyList.setText(getResources().getString(R.string.task_empty_list));
