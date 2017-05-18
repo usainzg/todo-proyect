@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
+<android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:rrvEmptyLayoutId="@layout/task_empty_list"
-    app:rrvLayoutType="LinearLayout"
-    android:background="#ECEDF0"
-    app:rrvSwipeToDelete="true" />
+    android:background="#ECEDF0" />
 

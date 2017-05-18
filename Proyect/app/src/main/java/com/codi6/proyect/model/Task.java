@@ -2,36 +2,20 @@ package com.codi6.proyect.model;
 
 import java.util.Date;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
-
 /**
  * Created by unaisainz on 15/11/16.
  */
 
-public class Task extends RealmObject {
+public class Task {
 
 
-    @PrimaryKey
-    private String id;
-
-    @Required
     private String title;
     private String description;
     private boolean isDone;
     private String label;
 
-    @Required
     private Date createdAt;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

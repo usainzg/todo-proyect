@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.codi6.proyect.activity.MainActivity1"
+    tools:context="com.codi6.proyect.activity.MainActivity"
     android:id="@+id/settings_view"
     android:layout_marginTop="10dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">

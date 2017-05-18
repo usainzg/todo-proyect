@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,23 +32,13 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.codi6.proyect.R;
-import com.codi6.proyect.adapters.SearchQueryCompletedAdapter;
-import com.codi6.proyect.adapters.TaskRealmAdapter;
 import com.codi6.proyect.app.Data;
-import com.codi6.proyect.bbdd.ManagerDb;
 import com.codi6.proyect.model.Task;
 
 import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
-import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
-import io.realm.Realm;
-import io.realm.RealmResults;
-import io.realm.Sort;
-
-@SuppressWarnings("ALL")
-public class MainActivity1 extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements OnNavigationItemSelectedListener, OnQueryTextListener {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -57,13 +46,6 @@ public class MainActivity1 extends AppCompatActivity
     // FAB BUTTONS
     private com.getbase.floatingactionbutton.FloatingActionButton fabAdd, fabCamera;
     private com.getbase.floatingactionbutton.FloatingActionsMenu fabMenu;
-
-    // ADAPTER
-    private TaskRealmAdapter taskRealmAdapter;
-    private ManagerDb managerDb;
-
-    // REALMRECYCLERVIEW
-    private RealmRecyclerView realmRecyclerView;
 
     // LAYOUTS
     private LinearLayout settings;
@@ -73,9 +55,6 @@ public class MainActivity1 extends AppCompatActivity
     private ToggleButton musicBtn;
     private MediaPlayer media;
     private Button basqueBtn, esBtn, enBtn;
-
-    // REALM INSTACE
-    private Realm realm;
 
     //Settings multi Texviews
     private TextView text_view_languageTextView, text_view_music_settingsTextView;
@@ -94,8 +73,6 @@ public class MainActivity1 extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main1);
 
-        realm = Realm.getDefaultInstance();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -113,7 +90,7 @@ public class MainActivity1 extends AppCompatActivity
         basqueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Data.changeLang("eus", MainActivity1.this);
+                Data.changeLang("eus", MainActivity.this);
                 recreate();
             }
         });
@@ -121,7 +98,7 @@ public class MainActivity1 extends AppCompatActivity
         esBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Data.changeLang("es", MainActivity1.this);
+                Data.changeLang("es", MainActivity.this);
                 recreate();
             }
         });
@@ -129,13 +106,11 @@ public class MainActivity1 extends AppCompatActivity
         enBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Data.changeLang("en", MainActivity1.this);
+                Data.changeLang("en", MainActivity.this);
                 recreate();
             }
         });
 
-
-        managerDb = new ManagerDb();
 
         // GET FAB MENU BUTTONS REFERENCES
         fabMenu = (com.getbase.floatingactionbutton.FloatingActionsMenu) findViewById(R.id.menu_add);
@@ -168,26 +143,15 @@ public class MainActivity1 extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // SET REALMRECYCLERVIEW
-        realmRecyclerView = (RealmRecyclerView) findViewById(R.id.list);
-
-        // GET TASKS FROM REALM DATABASE
-        RealmResults<Task> realmResults = managerDb.findTasks();
-
-        // BUILD ADAPTER PASSING REALMRESULT
-        taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), realmResults, true, false);
-
-        // SET ADAPTER TO REALMRECLYCLERVIEW
-        realmRecyclerView.setAdapter(taskRealmAdapter);
 
         updateTexts();
     }
 
     @Override
-    public void recreate()
-    {
-        Intent restart_app_intent = new Intent (MainActivity1.this, MainActivity1.class);
+    public void recreate() {
+        Intent restart_app_intent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(restart_app_intent);
-        overridePendingTransition(0,0); //Remove animation in transition...
+        overridePendingTransition(0, 0); //Remove animation in transition...
         finish();
     }
 
@@ -250,7 +214,7 @@ public class MainActivity1 extends AppCompatActivity
                 startActivity(Intent.createChooser(i, getResources().getString(R.string.support_email_send)));
             } catch (android.content.ActivityNotFoundException ex) {
                 // IF THERE ARE NOT EMAIL CLIENTS INSTALLED...
-                Toast.makeText(MainActivity1.this, getResources().getString(R.string.support_email_not_client), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.support_email_not_client), Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -262,21 +226,9 @@ public class MainActivity1 extends AppCompatActivity
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if(query.equals("")){
-            RealmResults<Task> allTasks = realm.where(Task.class).findAllSorted("title", Sort.ASCENDING);
-            taskRealmAdapter = new TaskRealmAdapter(getApplicationContext(), allTasks, true, false);
-            realmRecyclerView.setAdapter(taskRealmAdapter);
+        if (query.equals("")) {
 
-        }else{
-            RealmResults<Task> tasks = managerDb.findTask(query);
-            if (tasks.isEmpty()) {
-                Toast.makeText(this, "No se han encontrado registros con ese titulo!", Toast.LENGTH_LONG).show();
-                return false;
-            }
-            SearchQueryCompletedAdapter searchQueryCompletedAdapter = new SearchQueryCompletedAdapter(
-                    getApplicationContext(), tasks, true, false
-            );
-            realmRecyclerView.setAdapter(searchQueryCompletedAdapter);
+        } else {
         }
         return true;
 
@@ -285,7 +237,7 @@ public class MainActivity1 extends AppCompatActivity
     @Override
     public boolean onQueryTextChange(String newText) {
         // CALL onQueryTextSubmit TO EVALUATE CONTENT AND SHOW ALL TASKS
-        if(newText.equals("")){
+        if (newText.equals("")) {
             this.onQueryTextSubmit("");
         }
         return true;
@@ -293,7 +245,7 @@ public class MainActivity1 extends AppCompatActivity
 
 
     private void buildAndShowInputDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity1.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.dialog_main_title);
 
         LayoutInflater li = LayoutInflater.from(this);
@@ -309,19 +261,12 @@ public class MainActivity1 extends AppCompatActivity
 
                 String uniqueId = UUID.randomUUID().toString();
                 final Task taskToIntro = new Task();
-                taskToIntro.setId(uniqueId);
                 taskToIntro.setTitle(inputTitle.getText().toString());
                 taskToIntro.setDescription(inputDescription.getText().toString());
                 taskToIntro.setCreatedAt(new Date());
                 taskToIntro.setDone(false);
                 taskToIntro.setLabel(inputLabel.getText().toString());
 
-                realm.executeTransactionAsync(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        realm.copyToRealm(taskToIntro);
-                    }
-                });
 
             }
         });
@@ -348,13 +293,10 @@ public class MainActivity1 extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        realm.close();
-        managerDb.closeAll();
     }
 
     //Use to update text in select language
-    private void updateTexts()
-    {
+    private void updateTexts() {
         invalidateOptionsMenu();
 
         Data.loadLocale(getApplicationContext());
