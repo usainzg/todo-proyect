@@ -1,4 +1,4 @@
-package com.codi6.proyect.activity;
+package com.codi6.proyect.ui.activities;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity
     //Settings multi Texviews
     private TextView text_view_languageTextView, text_view_music_settingsTextView;
 
-    // Empty lis view TextView
-    private TextView text_view_emptyList;
 
     // Navigation view
     private NavigationView navigationView;
@@ -84,9 +82,7 @@ public class MainActivity extends AppCompatActivity
         enBtn = (Button) findViewById(R.id.btn_lang_english);
 
         text_view_languageTextView = (TextView) findViewById(R.id.txt_settings_lang);
-
-        text_view_emptyList = (TextView) findViewById(R.id.txt_empty);
-
+        
         basqueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -308,9 +304,6 @@ public class MainActivity extends AppCompatActivity
 
         //Update Settings texts
         text_view_languageTextView.setText(getResources().getString(R.string.settings_text_view_lenguage));
-
-        // Update Empty_list texts
-        text_view_emptyList.setText(getResources().getString(R.string.task_empty_list));
 
         //Update Left navigation menu items texts in select language
         navigationView.getMenu().getItem(0).setTitle(getResources().getString(R.string.drawer_menu_txt_tasks));

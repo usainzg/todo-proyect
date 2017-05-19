@@ -3,7 +3,6 @@ package com.codi6.proyect.holders;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codi6.proyect.R;
