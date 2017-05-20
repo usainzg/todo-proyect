@@ -4,12 +4,9 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -21,19 +18,17 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.codi6.proyect.R;
 import com.codi6.proyect.app.Data;
+import com.codi6.proyect.listeners.ActivityMainOnClickListener;
 import com.codi6.proyect.model.Task;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity
+public class ActivityMain extends AppCompatActivity
         implements OnQueryTextListener {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -48,9 +43,7 @@ public class MainActivity extends AppCompatActivity
 
 
     // Navigation view
-    private NavigationView navigationView;
-    private DrawerLayout drawer;
-    private ActionBarDrawerToggle toggle;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,51 +54,27 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        basqueBtn = (Button) findViewById(R.id.btn_lang_basque);
-        esBtn = (Button) findViewById(R.id.btn_lang_spanish);
-        enBtn = (Button) findViewById(R.id.btn_lang_english);
+        updateTexts();
+    }
 
-        text_view_languageTextView = (TextView) findViewById(R.id.txt_settings_lang);
-
-        basqueBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Data.changeLang("eus", MainActivity.this);
-                recreate();
-            }
-        });
-
-        esBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Data.changeLang("es", MainActivity.this);
-                recreate();
-            }
-        });
-
-        enBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Data.changeLang("en", MainActivity.this);
-                recreate();
-            }
-        });
-
-
+    private void initViews() {
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.main_navigation_view);
         fabAdd = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
+    }
+
+    private void setOnClick() {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 buildAndShowInputDialog();
             }
         });
-
-        updateTexts();
+        bottomNavigationView.setOnClickListener(new ActivityMainOnClickListener(this));
     }
 
     @Override
     public void recreate() {
-        Intent restart_app_intent = new Intent(MainActivity.this, MainActivity.class);
+        Intent restart_app_intent = new Intent(ActivityMain.this, ActivityMain.class);
         startActivity(restart_app_intent);
         overridePendingTransition(0, 0); //Remove animation in transition...
         finish();
@@ -152,7 +121,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private void buildAndShowInputDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityMain.this);
         builder.setTitle(R.string.dialog_main_title);
 
         LayoutInflater li = LayoutInflater.from(this);
@@ -201,9 +170,6 @@ public class MainActivity extends AppCompatActivity
         Data.loadLocale(getApplicationContext());
 
         Log.d("IDIOMA--> ", "Select language in app is: " + Data.getLocaleLanguage(getApplicationContext()));
-
-        //Update Settings texts
-        text_view_languageTextView.setText(getResources().getString(R.string.settings_text_view_lenguage));
 
     }
 }
