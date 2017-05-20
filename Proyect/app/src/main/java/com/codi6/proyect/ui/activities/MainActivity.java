@@ -6,10 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,14 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.codi6.proyect.R;
@@ -39,21 +34,13 @@ import java.util.Date;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity
-        implements OnNavigationItemSelectedListener, OnQueryTextListener {
+        implements OnQueryTextListener {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     // FAB BUTTONS
-    private com.getbase.floatingactionbutton.FloatingActionButton fabAdd, fabCamera;
-    private com.getbase.floatingactionbutton.FloatingActionsMenu fabMenu;
+    private com.getbase.floatingactionbutton.FloatingActionButton fabAdd;
 
-    // LAYOUTS
-    private LinearLayout settings;
-    private RelativeLayout task_view;
-
-    // SETTINGS REFERENCIAS
-    private ToggleButton musicBtn;
-    private MediaPlayer media;
     private Button basqueBtn, esBtn, enBtn;
 
     //Settings multi Texviews
@@ -69,20 +56,17 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main1);
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        settings = (LinearLayout) findViewById(R.id.settings_view);
-        task_view = (RelativeLayout) findViewById(R.id.content_main1);
 
         basqueBtn = (Button) findViewById(R.id.btn_lang_basque);
         esBtn = (Button) findViewById(R.id.btn_lang_spanish);
         enBtn = (Button) findViewById(R.id.btn_lang_english);
 
         text_view_languageTextView = (TextView) findViewById(R.id.txt_settings_lang);
-        
+
         basqueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,37 +92,13 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        // GET FAB MENU BUTTONS REFERENCES
-        fabMenu = (com.getbase.floatingactionbutton.FloatingActionsMenu) findViewById(R.id.menu_add);
-        fabCamera = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_camera);
         fabAdd = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.action_btn_add);
-
-        // ADD ONCLICKLISTENER´s
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 buildAndShowInputDialog();
             }
         });
-
-        fabCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showCamera();
-            }
-        });
-
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // SET REALMRECYCLERVIEW
 
         updateTexts();
     }
@@ -153,12 +113,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
     @Override
@@ -173,50 +128,6 @@ public class MainActivity extends AppCompatActivity
         searchView.setQueryHint(getResources().getString(R.string.action_search_title));
         // SET ON QUERY LISTENER TO LISTEN SEARCH EVENT´S
         searchView.setOnQueryTextListener(this);
-        return true;
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_tasks) {
-            // SHOW TASK_VIEW AND FABMENU (FLOATING ICONS)
-            task_view.setVisibility(View.VISIBLE);
-            fabMenu.setVisibility(View.VISIBLE);
-            // HIDE OTHER INCLUDED LAYOUTS
-            settings.setVisibility(View.GONE);
-
-        } else if (id == R.id.nav_settings) {
-            // HIDE TASK_VIEW AND FABMENU (FLOATING ICONS)
-            task_view.setVisibility(View.GONE);
-            fabMenu.setVisibility(View.GONE);
-            // SHOW SETTINGS LAYOUT
-            settings.setVisibility(View.VISIBLE);
-
-        } else if (id == R.id.nav_help) {
-            // INTENT FOR SEND SUPPORT EMAIL
-            Intent i = new Intent(Intent.ACTION_SEND);
-            // SET TYPE
-            i.setType("message/rfc822");
-            // POPULATE WITH SUPPORT EMAIL
-            i.putExtra(Intent.EXTRA_EMAIL, new String[]{"unaihtc70@gmail.com"});
-            // POPULATE WITH SUBJECT HINT AND BODY HINT
-            i.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.support_email_subject));
-            i.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.support_email_body));
-            try {
-                // START INTENT WITH CHOOSER
-                startActivity(Intent.createChooser(i, getResources().getString(R.string.support_email_send)));
-            } catch (android.content.ActivityNotFoundException ex) {
-                // IF THERE ARE NOT EMAIL CLIENTS INSTALLED...
-                Toast.makeText(MainActivity.this, getResources().getString(R.string.support_email_not_client), Toast.LENGTH_SHORT).show();
-            }
-
-        }
-        // BUILD DRAWERLAYOUT
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -278,14 +189,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void showCamera() {
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -299,18 +202,8 @@ public class MainActivity extends AppCompatActivity
 
         Log.d("IDIOMA--> ", "Select language in app is: " + Data.getLocaleLanguage(getApplicationContext()));
 
-        //Update app title
-        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
-
         //Update Settings texts
         text_view_languageTextView.setText(getResources().getString(R.string.settings_text_view_lenguage));
 
-        //Update Left navigation menu items texts in select language
-        navigationView.getMenu().getItem(0).setTitle(getResources().getString(R.string.drawer_menu_txt_tasks));
-        navigationView.getMenu().getItem(1).setTitle(getResources().getString(R.string.drawer_menu_txt_settings));
-        navigationView.getMenu().getItem(2).setTitle(getResources().getString(R.string.drawer_menu_txt_help));
-
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
     }
 }
