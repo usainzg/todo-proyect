@@ -101,4 +101,8 @@
         <item name="android:textColorPrimary">@color/colorPrimary</item>
     </style>
 
+    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    </style>
+
 </resources>
