@@ -1,14 +1,13 @@
 package com.codi6.proyect.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.codi6.proyect.R;
-import com.codi6.proyect.TaskCardOnClickListener;
+import com.codi6.proyect.listeners.TaskCardOnClickListener;
 import com.codi6.proyect.holders.HolderTaskCardView;
 import com.codi6.proyect.model.Task;
 

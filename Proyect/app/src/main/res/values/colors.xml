@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6071d3</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#03A9F4</color>
+    <color name="colorAccent">#03A9F4</color>
+
+    <color name="circle_inactive_indicator">#4D000000</color>
+    <color name="black_transparent">#14000000</color>
+    <color name="notification_color">#004461</color>
+    <color name="text_white">#FFF</color>
+    <color name="text_grey">#4A4A4A</color>
+    <color name="text_light_grey">#9B9B9B</color>
+    <color name="grey_bg_card">#D8D8D8</color>
+    <color name="light_blue">#68CBF8</color>
+    <color name="mid_blue">#03A9F4</color>
+    <color name="divider_color">#DDDDDD</color>
+    <color name="tab_indicator_color">#0488C3</color>
+    <color name="transparent_white">#80FFFFFF</color>
+    <color name="transparent_blue">#F4FBFE</color>
+    <color name="recepcion_green">#2ECC71</color>
+    <color name="break_orange">#F4B350</color>
+
+    <color name="color_promotions_1">#68CBF8</color>
+    <color name="color_promotions_2">#35BAF6</color>
+    <color name="color_promotions_3">#03A9F4</color>
+    <color name="color_promotions_4">#027FB7</color>
+    <color name="color_promotions_5">#02557A</color>
 </resources>
